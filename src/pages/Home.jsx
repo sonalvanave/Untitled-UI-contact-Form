@@ -8,11 +8,11 @@ const Home = () => {
     <div className="w-full p-4">
       <Header />
 
-      <div className="grid grid-cols-8">
+      <div className="max-auto grid max-w-7xl grid-cols-8">
         <div className="col-span-2 hidden md:block">
           <Aside />
         </div>
-        <div className="col-span-full md:col-span-6 md:bg-lime-400">
+        <div className="col-span-full rounded-lg p-4 md:col-span-6 md:bg-lime-400">
           <Form />
         </div>
       </div>
