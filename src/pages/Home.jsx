@@ -8,7 +8,7 @@ const Home = () => {
     <div className="w-full p-4">
       <Header />
 
-      <div className="max-auto grid max-w-7xl grid-cols-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-8 gap-1">
         <div className="col-span-2 hidden md:block">
           <Aside />
         </div>
