@@ -1,6 +1,5 @@
-import React from "react";
+import { useState } from "react";
 import { RiSparkling2Fill, RiMagicLine } from "react-icons/ri";
-
 const services = [
   "Website Design",
   "Content",
@@ -11,6 +10,35 @@ const services = [
 ];
 
 const Form = () => {
+  const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [selectedServices, setSelectedServices] = useState([]);
+
+  const handleCheckbox = (value, status) => {
+    setSelectedServices((prevState) => {
+      return status
+        ? [...prevState, value]
+        : prevState.filter((v) => v !== value);
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append(import.meta.env.VITE_FULLNAME, fullname);
+    formData.append(import.meta.env.VITE_EMAIL, email);
+    formData.append(import.meta.env.VITE_MESSAGE, message);
+    formData.append(import.meta.env.VITE_SERVICES, selectedServices);
+
+    fetch(import.meta.env.VITE_SUBMIT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: formData,
+    }).then(() => console.log("form fill hogya",import.meta.env.VITE_ENTRIES));
+  };
+
   return (
     <div>
       <h1 className="w-96 text-3xl font-semibold">
@@ -21,30 +49,31 @@ const Form = () => {
       <p className="my-5 text-xl">
         Tell us more about yourself and what's on your mind.
       </p>
-      <form
-        className="flex w-full flex-col gap-3"
-        action="https://docs.google.com/forms/d/e/1FAIpQLSelphZUkNJQETWwdmJbulG0a1uU6Crynf77mwgMGPIrcDn5kQ/formResponse"
-      >
+
+      <form className="flex w-full flex-col gap-3" onSubmit={handleSubmit}>
         <input
           type="text"
-          name="entry.260550496"
           id="fullname"
           placeholder="Your name"
           className="w-full border-b border-zinc-600 p-1 placeholder-stone-600 md:bg-lime-400"
+          value={fullname}
+          onChange={(e) => setFullname(e.target.value)}
         />
         <input
           type="email"
-          name="entry.288408065"
           id="email"
           placeholder="your@company.com"
           className="w-full border-b border-zinc-600 p-1 placeholder-stone-600 md:bg-lime-400"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="text"
-          name="entry.1256925323"
           id="message"
           placeholder="Tell us a little about your project..."
           className="h-24 w-full border-b border-zinc-600 p-1 placeholder-stone-600 md:bg-lime-400"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
         />
 
         <p className="my-3 text-stone-700">How can we help?</p>
@@ -55,9 +84,9 @@ const Form = () => {
               <label className="flex items-center gap-1" key={service}>
                 <input
                   type="checkbox"
-                  name="entry.1840341781"
-                  value={service}
                   className="size-5"
+                  value={service}
+                  onChange={(e) => handleCheckbox(service, e.target.checked)}
                 />{" "}
                 {service}
               </label>
