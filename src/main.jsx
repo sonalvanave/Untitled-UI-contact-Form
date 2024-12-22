@@ -1,21 +1,24 @@
-// html element usko target
-// with the help react-dom hme createRoot import karna hai
-// createRoot mein jo html element target kiya tha uski help se root
-// create karna hai
-
-// and then we can render anything using JSX
-
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import "@/index.css";
 import Home from "@/pages/Home";
-import Test from "./Test";
+import Error from "@/pages/Error";
+import Submission from "@/pages/Submission";
+import NotFound from "@/pages/NotFound";
+// import Test from "./Test";
 
 const rootEl = document.querySelector("#root");
 const root = createRoot(rootEl);
 root.render(
   <React.StrictMode>
-    <Home />
-    {/* <Test /> */}
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/error" element={<Error />} />
+        <Route path="/submission" element={<Submission />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   </React.StrictMode>,
 );

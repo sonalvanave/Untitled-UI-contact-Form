@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RiSparkling2Fill, RiMagicLine } from "react-icons/ri";
 const services = [
@@ -10,6 +11,8 @@ const services = [
 ];
 
 const Form = () => {
+  const navigate = useNavigate();
+
   const {
     handleSubmit,
     register,
@@ -29,7 +32,10 @@ const Form = () => {
       method: "POST",
       mode: "no-cors",
       body: formData,
-    }).then(() => console.log("form fill hogya", import.meta.env.VITE_ENTRIES));
+    }).then(() => {
+      console.log("form fill hogya", import.meta.env.VITE_ENTRIES);
+      navigate("submission");
+    });
   };
 
   return (
@@ -71,8 +77,8 @@ const Form = () => {
           {...register("email", {
             required: "Please enter your email",
             pattern: {
-              value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-              message: "Must be a valid email address",
+              value: /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com)$/,
+              message: "Must be a valid email address from authentic source",
             },
           })}
         />
