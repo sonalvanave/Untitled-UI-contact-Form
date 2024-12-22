@@ -21,28 +21,49 @@ function Test() {
           type="text"
           id=""
           placeholder="Enter your name"
-          {...register("fullname")}
+          {...register("fullname", {
+            required: "Please enter your name first",
+          })}
         />
+        {errors.fullname && (
+          <p className="text-red-500">{errors.fullname.message}</p>
+        )}
+
         <input
           type="number"
           className="mb-2"
           id=""
           placeholder="1"
-          {...register("number")}
+          {...register("number", {
+            required: "Number to dal do",
+            min: {
+              value: 4,
+              message: "Atleast 4",
+            },
+          })}
         />
+        {errors.number && (
+          <p className="text-red-500">{errors.number.message}</p>
+        )}
+
         <div className="mb-2">
           {services.map((service) => {
             return (
               <label key={service} className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  {...register("services")}
+                  {...register("services", {
+                    required: "Atleast one select",
+                  })}
                   value={service}
                 />
                 <p>{service}</p>
               </label>
             );
           })}
+          {errors.services && (
+            <p className="text-red-500">{errors.services.message}</p>
+          )}
         </div>
         <button type="submit">Submit</button>
       </form>

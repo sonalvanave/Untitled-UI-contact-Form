@@ -15,7 +15,7 @@ const rootEl = document.querySelector("#root");
 const root = createRoot(rootEl);
 root.render(
   <React.StrictMode>
-    {/* <Home />  */}
-    <Test />
+    <Home />
+    {/* <Test /> */}
   </React.StrictMode>,
 );
